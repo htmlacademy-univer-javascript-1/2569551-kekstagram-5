@@ -1,32 +1,19 @@
-const checkStringLength = (string, maxLength) => string.length <= maxLength;
+function checkMeetingTime(startTime, endTime, meetingStart, meetingDuration) {
 
-checkStringLength();
-
-function isPalindrom (string) {
-
-  const stringWithoutSpaces = string.replaceAll(' ', '').toUpperCase();
-
-  let reversedString = '';
-
-  for (let i = stringWithoutSpaces.length - 1; i >= 0; i--) {
-    reversedString += stringWithoutSpaces[i];
-  }
-  return stringWithoutSpaces === reversedString;
-}
-
-isPalindrom();
-
-function getNumber (input) {
-  const string = String(input);
-  let number = '';
-  for (let i = 0; i < string.length; i++) {
-    if (!Number.isNaN(parseInt(input[i], 10))) {
-      number += string[i];
-    }
+  function timeToMinutes(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
   }
 
-  const result = parseInt(number, 10);
-  return Number.isNaN(result) ? NaN : result;
-}
+  const startTimeMinutes = timeToMinutes(startTime);
+  const endTimeMinutes = timeToMinutes(endTime);
+  const meetingStartMinutes = timeToMinutes(meetingStart);
+  const meetingEndMinutes = meetingStartMinutes + meetingDuration;
 
-getNumber();
+  return meetingStartMinutes >= startTimeMinutes && meetingEndMinutes <= endTimeMinutes;
+}
+checkMeetingTime('8:00', '17:30', '14:00', 90);
+checkMeetingTime('8:0', '10:0', '8:0', 120);
+checkMeetingTime('08:00', '14:30', '14:00', 90);
+checkMeetingTime('14:00', '17:30', '08:0', 90);
+checkMeetingTime('8:00', '17:30', '08:00', 900);
