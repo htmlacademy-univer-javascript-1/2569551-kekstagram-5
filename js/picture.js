@@ -1,4 +1,4 @@
-import { createPhotoDescriptions } from "./data";
+import { createPhotoDescriptions } from './data.js';
 
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture');
@@ -13,12 +13,13 @@ function createPictureElement(photoData) {
 }
 function renderPictures(photoData) {
   const fragment = new DocumentFragment();
-  photoData.forEach(photo => {
+  photoData.forEach((photo) => {
     const picturesElement = createPictureElement(photo);
     fragment.appendChild(picturesElement);
   });
   picturesList.appendChild(fragment);
 }
 
-const photoData = createPhotoDescriptions();
-renderPictures(photoData);
+const photos = createPhotoDescriptions();
+
+renderPictures(photos);
