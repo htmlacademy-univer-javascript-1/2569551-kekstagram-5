@@ -41,20 +41,20 @@ const Messages = [
 
 const createComment = (index) => ({
   id: index,
-  avatar: `img/avatar-${ getRandomIntiger(Avatar.MIN, Avatar.MAX) }.svg`,
+  avatar: `img/avatar-${getRandomIntiger(Avatar.MIN, Avatar.MAX)}.svg`,
   message: getRandomArrayElement(Messages),
   name: getRandomArrayElement(Names)
 });
 
 const createPhoto = (index) => ({
   id: index,
-  url: `photos/${ index }.jpg`,
+  url: `photos/${index + 1}.jpg`,
   description: Description,
   likes: getRandomIntiger(Likes.MIN, Likes.MAX),
   comments: Array.from({length: getRandomIntiger(Comments.MIN, Comments.MAX)}, (_, commentIndex) => createComment(commentIndex))
 });
 
-const createPhotoDescriptions = () => {
-  Array.from({ length: AllPhotoCount }, (_, index) => createPhoto(index));
+const createPhotoDescriptions = function() {
+  return Array.from({ length: AllPhotoCount }, (_, index) => createPhoto(index));
 };
 export {createPhotoDescriptions};

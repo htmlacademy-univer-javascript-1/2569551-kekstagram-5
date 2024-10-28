@@ -1,3 +1,1 @@
-import {photoDescription} from './data.js';
-
-photoDescription();
+import './picture.js';
