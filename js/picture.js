@@ -29,7 +29,7 @@ function renderPictures(photoData) {
     fragment.appendChild(picturesElement);
   });
   picturesList.appendChild(fragment);
-}
+};
 
 const photos = createPhotoDescriptions();
 
