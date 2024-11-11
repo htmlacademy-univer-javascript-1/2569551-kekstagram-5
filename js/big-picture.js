@@ -12,7 +12,6 @@ const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
 let currentComments = [];
 let commentsCount = COMMENTS_STEP;
-let currentCommentIndex = 0;
 
 const createСomment = (comment) => {
   const newComment = document.createElement('li');
@@ -59,7 +58,7 @@ const renderComments = () => {
 const onLoadCommentsButtonClick = () => {
   commentsCount += COMMENTS_STEP;
   renderComments();
-}
+};
 
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
