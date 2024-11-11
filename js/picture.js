@@ -20,7 +20,7 @@ function createPictureElement(photoData) {
   newPicture.addEventListener('click', onPictureElementClick);
 
   return newPicture;
-};
+}
 
 function renderPictures(photoData) {
   const fragment = new DocumentFragment();
@@ -29,7 +29,7 @@ function renderPictures(photoData) {
     fragment.appendChild(picturesElement);
   });
   picturesList.appendChild(fragment);
-};
+}
 
 const photos = createPhotoDescriptions();
 
