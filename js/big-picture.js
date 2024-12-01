@@ -40,8 +40,7 @@ const renderComments = () => {
   commentsCount = (commentsCount > currentComments.length) ? currentComments.length : commentsCount;
   const commentsSelected = currentComments.slice(0, commentsCount);
 
-
-  if (currentComments.length <= COMMENTS_STEP || commentsCount >= currentComments.length) {
+  if (currentComments.length <= commentsCount) {
     loadComments.classList.add('hidden');
   } else {
     loadComments.classList.remove('hidden');
@@ -75,6 +74,7 @@ const showBigPicture = (picture) => {
   pictureCaption.textContent = description;
 
   currentComments = comments.slice();
+  commentsCount = COMMENTS_STEP;
 
   renderComments();
   loadComments.addEventListener('click', onLoadCommentsButtonClick);
