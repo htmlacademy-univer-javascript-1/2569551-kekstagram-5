@@ -1,36 +1,41 @@
-import { createPhotoDescriptions } from './data.js';
 import { showBigPicture } from './big-picture.js';
+import { sendRequest } from './utils.js';
+import { showDataLoadError } from './messages.js';
 
+const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
 const picturesList = document.querySelector('.pictures');
-const pictureTemplate = document.querySelector('#picture');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-function createPictureElement(photoData) {
-  const newPicture = pictureTemplate.content.cloneNode(true).querySelector('.picture');
-  newPicture.querySelector('.picture__img').src = photoData.url;
-  newPicture.querySelector('.picture__img').alt = photoData.description;
-  newPicture.querySelector('.picture__comments').textContent = photoData.comments.length;
-  newPicture.querySelector('.picture__likes').textContent = photoData.likes;
+const createPictureElement = (picture) => {
+  const newPicture = pictureTemplate.cloneNode(true);
+  newPicture.querySelector('.picture__img').src = picture.url;
+  newPicture.querySelector('.picture__img').alt = picture.description;
+  newPicture.querySelector('.picture__likes').textContent = picture.likes;
+  newPicture.querySelector('.picture__comments').textContent = picture.comments.length;
 
-  const onPictureElementClick = (evt) => {
-    evt.preventDefault();
-
-    showBigPicture(photoData);
-  };
-
-  newPicture.addEventListener('click', onPictureElementClick);
+  newPicture.addEventListener('click', () => {
+    showBigPicture(picture);
+  });
 
   return newPicture;
-}
+};
 
-function renderPictures(photoData) {
-  const fragment = new DocumentFragment();
-  photoData.forEach((photo) => {
-    const picturesElement = createPictureElement(photo);
-    fragment.appendChild(picturesElement);
+const createPicturesFragment = (pictures) => {
+  const fragment = document.createDocumentFragment();
+  pictures.forEach((picture) => {
+    const pictureElement = createPictureElement(picture);
+    fragment.appendChild(pictureElement);
   });
+  return fragment;
+};
+
+const renderPictures = async () => {
+  const allPictures = await sendRequest({
+    url: DATA_URL,
+    onError: () => showDataLoadError()
+  });
+  const fragment = createPicturesFragment(allPictures);
   picturesList.appendChild(fragment);
-}
+};
 
-const photos = createPhotoDescriptions();
-
-renderPictures(photos);
+renderPictures();
