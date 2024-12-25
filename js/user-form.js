@@ -1,9 +1,10 @@
 import { resetScale } from './scale.js';
-import { resetEffect } from './effects.js';
+import { resetEffect } from './img-effects.js';
 import { isEscape } from './utils.js';
 import { initializeValidation } from './validation.js';
 import { submitForm } from './form-submit.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const uploadForm = document.querySelector('.img-upload__form');
 const imageUploadInput = document.querySelector('.img-upload__input');
 const imageEditForm = document.querySelector('.img-upload__overlay');
@@ -13,13 +14,20 @@ const effectLevel = document.querySelector('.effect-level__value');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const descriptionInput = document.querySelector('.text__description');
 const effectButtons = document.querySelectorAll('.effects__radio');
+const previewImage = document.querySelector('.img-upload__preview img');
 
 let isErrorMessageOpen = false;
 
 imageUploadInput.addEventListener('change', () => {
   if (imageUploadInput.files.length > 0) {
-    imageEditForm.classList.remove('hidden');
-    document.body.classList.add('modal-open');
+    const file = imageUploadInput.files[0];
+    const fileName = file.name.toLowerCase();
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    if (matches) {
+      previewImage.src = URL.createObjectURL(file);
+      imageEditForm.classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    }
   }
 });
 
