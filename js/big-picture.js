@@ -19,7 +19,7 @@ const createСomment = (comment) => {
   const textComment = document.createElement('p');
 
   newComment.classList.add('social__comment');
-  imgComment.classList.add('social--picture');
+  imgComment.classList.add('social__picture');
   textComment.classList.add('social__text');
 
   imgComment.src = comment.avatar;
@@ -46,7 +46,7 @@ const renderComments = () => {
     loadComments.classList.remove('hidden');
   }
 
-  socialCommentsCount.innerHTML = `${commentsCount} из <span class="comments-count">${currentComments.length}</span>  комментариев`;
+  socialCommentsCount.innerHTML = `<span class="social__comment-shown-count">${commentsCount}</span> из <span class="social__comment-total-count">${currentComments.length}</span>  комментариев`;
 
   commentsCount = (commentsCount >= currentComments.length) ? COMMENTS_STEP : commentsCount;
 

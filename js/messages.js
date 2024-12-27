@@ -1,12 +1,17 @@
 import { isEscape } from './utils.js';
 import { closeOverlay, setErrorMessageStatus } from './user-form.js';
 
+const Z_INDEX = 999;
 const successTemplate = document.querySelector('#success');
 const errorTemplate = document.querySelector('#error');
 
 const showDataLoadError = () => {
+  const existingError = document.querySelector('.data-error');
+  if (existingError) {
+    existingError.remove();
+  }
   const errorMessage = document.createElement('div');
-  errorMessage.classList.add('error-message');
+  errorMessage.classList.add('data-error');
   errorMessage.textContent = 'Ошибка загрузки данных';
 
   Object.assign(errorMessage.style, {
@@ -18,7 +23,7 @@ const showDataLoadError = () => {
     backgroundColor: 'red',
     padding: '20px',
     borderRadius: '5px',
-    zIndex: 999
+    zIndex: Z_INDEX
   });
 
   document.body.appendChild(errorMessage);

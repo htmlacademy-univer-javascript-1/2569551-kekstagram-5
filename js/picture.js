@@ -3,6 +3,7 @@ import { sendRequest, filterDefault, filterRandom, filterDiscussed, debounce } f
 import { showDataLoadError } from './messages.js';
 
 const DATA_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/data';
+const DEFAULT_DEBOUNCE_DELAY = 500;
 const picturesList = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const imgFilters = document.querySelector('.img-filters');
@@ -47,6 +48,9 @@ const fetchPictures = async () => {
     url: DATA_URL,
     onError: () => showDataLoadError()
   });
+  if (!allPictures) {
+    return;
+  }
   renderPictures(allPictures);
   imgFilters.classList.remove('img-filters--inactive');
 };
@@ -67,12 +71,12 @@ const onFilterChange = (filter) => {
 };
 
 filterButtons.forEach((button) => {
-  button.addEventListener('click', debounce((evt) => {
+  button.addEventListener('click', (evt) => {
     filterButtons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
     evt.target.classList.add('img-filters__button--active');
     const filter = evt.target.id;
-    onFilterChange(filter);
-  }));
+    debounce(() => onFilterChange(filter), DEFAULT_DEBOUNCE_DELAY)();
+  });
 });
 
 export { fetchPictures };
