@@ -1,6 +1,8 @@
 import { sendRequest } from './utils.js';
 import { showSuccessMessage, showErrorMessage } from './messages.js';
-const POST_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
+
+const POST_URL = 'https://29.javascript.htmlacademy.pro/kekstagram/';
+
 const submitForm = (form, pristine) => {
   const submitButton = document.querySelector('.img-upload__submit');
   form.addEventListener('input', () => {
@@ -22,4 +24,5 @@ const submitForm = (form, pristine) => {
     });
   });
 };
+
 export { submitForm };

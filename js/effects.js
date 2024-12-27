@@ -1,5 +1,9 @@
 import { applyEffect, resetEffect } from './img-effects.js';
 
+const DEFAULT_RANGE = { min: 0, max: 1 };
+const DEFAULT_START = 1;
+const DEFAULT_STEP = 0.1;
+
 const EFFECT_OPTIONS = {
   chrome: { range: { min: 0, max: 1 }, step: 0.1, start: 1 },
   sepia: { range: { min: 0, max: 1 }, step: 0.1, start: 1 },
@@ -13,12 +17,12 @@ const effectLevelSlider = document.querySelector('.effect-level__slider');
 const effectLevelValue = document.querySelector('.effect-level__value');
 
 noUiSlider.create(effectLevelSlider, {
-  range: { min: 0, max: 1 },
-  start: 1,
-  step: 0.1,
+  range: DEFAULT_RANGE,
+  start: DEFAULT_START,
+  step: DEFAULT_STEP,
   connect: 'lower',
   format: {
-    to: (value) => value.toFixed(1),
+    to: (value) => value,
     from: (value) => parseFloat(value),
   },
 });
