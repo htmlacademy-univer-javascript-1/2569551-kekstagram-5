@@ -55,7 +55,7 @@ const fetchPictures = async () => {
   imgFilters.classList.remove('img-filters--inactive');
 };
 
-const onFilterChange = (filter) => {
+const debouncedOnFilterChange = debounce((filter) => {
   let filteredPictures;
   switch (filter) {
     case 'filter-random':
@@ -68,14 +68,14 @@ const onFilterChange = (filter) => {
       filteredPictures = filterDefault(allPictures);
   }
   renderPictures(filteredPictures);
-};
+}, DEFAULT_DEBOUNCE_DELAY);
 
 filterButtons.forEach((button) => {
   button.addEventListener('click', (evt) => {
     filterButtons.forEach((btn) => btn.classList.remove('img-filters__button--active'));
     evt.target.classList.add('img-filters__button--active');
     const filter = evt.target.id;
-    debounce(() => onFilterChange(filter), DEFAULT_DEBOUNCE_DELAY)();
+    debouncedOnFilterChange(filter);
   });
 });
 

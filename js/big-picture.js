@@ -1,3 +1,5 @@
+import { isEscape } from './utils.js';
+
 const COMMENTS_STEP = 5;
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImage = bigPicture.querySelector('.big-picture__img img');
@@ -83,7 +85,7 @@ const showBigPicture = (picture) => {
 
 closeButton.addEventListener('click', closeBigPicture);
 document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscape(evt)) {
     closeBigPicture();
   }
 });
