@@ -2,15 +2,6 @@ const MAX_HASHTAGS = 5;
 const MAX_DESCRIPTION_LENGTH = 140;
 const RANDOM_PICTURES_COUNT = 10;
 
-const getRandomIntiger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getRandomArrayElement = (elements) => elements[getRandomIntiger(0, elements.length - 1)];
-
 const isEscape = (evt) => evt.key === 'Escape';
 
 const parseInput = (value) => value.trim().toLowerCase().split(/\s+/);
@@ -77,8 +68,6 @@ const debounce = (callback, timeoutDelay) => {
 };
 
 export {
-  getRandomIntiger,
-  getRandomArrayElement,
   isEscape,
   validateHashtagsCount,
   validateHashtagsUnique,
